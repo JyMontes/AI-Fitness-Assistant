@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Fin del Ejercicio</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background: #f9f9f9; }
+        .container { margin-top: 3rem; }
+        img { width: 200px; margin-bottom: 2rem; }
+        .btn { background: #007bff; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-size: 1.1rem; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/static/check.webp" alt="Fin">
+        <h1>¡Ejercicio finalizado!</h1>
+        <button class="btn" onclick="window.location.href='/next_exercise'">Siguiente ejercicio</button>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Ejercicio completado!</title>
+    <style>
+        body { text-align: center; background: #f2f2f2; }
+        img { margin-top: 2rem; width: 300px; }
+    </style>
+</head>
+<body>
+    <h1>¡Ejercicio completado!</h1>
+    <img src="/static/check.webp" alt="Fin">
+    <script>
+        setTimeout(function() {
+            window.location.href = "/next_exercise";
+        }, 1200);
+    </script>
+</body>
+</html>
