@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: auto;
+        }
+
+        img#videoFeed {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            img#videoFeed {
+                max-width: 800px;
+            }
+        }
+
+        .btn {
+            margin-top: 1rem;
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container-video">
+        {% if finished %}
+        <h1>¡Serie completada!</h1>
+        <img src="/static/check.webp" alt="">
+        <button class="btn" onclick="window.location.href='/'">Regresar</button>
+        {% else %}
+        <h1>Ejercicio: {{ exercise|capitalize }} ({{ reps }} repeticiones)</h1>
+    <img id="videoFeed" src="{{ stream_url }}" alt="Video en vivo">
+        <br>
+    <button class="btn" id="nextBtn" onclick="window.location.href='/next_exercise'" >Siguiente ejercicio</button>
+        {% endif %}
+    </div>
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") {
+                window.location.href = "/";
+            }
+        });
+    </script>
+    <script src="/static/video_page_patch.js"></script>
+</body>
+</html>
