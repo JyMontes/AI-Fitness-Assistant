@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env
+venv/
+ENV/
+.venv/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# VSCode
+.vscode/
+
+# Mac/Linux/Windows system files
+.DS_Store
+Thumbs.db
+
+# Database and instance files
+instance/
+fitter.db*
+*.sqlite3
+*.db
+*.db-journal
+
+# Excel/Exported files
+*.xlsx
+
+# Logs
+*.log
+
+# Otros
+errors_*.json
