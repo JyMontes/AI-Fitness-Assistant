@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Historial de Ejercicios</title>
+    <style>
+        .appbar {
+            background: #1C1C1C;
+            color: #fff;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2E2E2E;
+            box-shadow: 0 2px 8px #00000044;
+            margin: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .appbar .title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .appbar .nav {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .appbar .nav a {
+            color: #DFFF00;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .appbar .nav a:hover {
+            background: #2E2E2E;
+            color: #C6FF00;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000000;
+            color: #FFFFFF;
+            margin: 0;
+        }
+
+        .main-content {
+            margin-top: 64px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #DFFF00;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin: 1rem;
+            color: #DFFF00;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 2rem auto;
+            background: #1C1C1C;
+            color: #FFFFFF;
+        }
+
+        th,
+        td {
+            border: 1px solid #2E2E2E;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #DFFF00;
+            color: #000000;
+        }
+
+        tr:nth-child(even) {
+            background: #2E2E2E;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="appbar">
+        <span class="title">AI Assistant App</span>
+        <div class="nav">
+            <a href="{{ url_for('cuenta') }}"><i class="fa-solid fa-user"></i> Cuenta</a>
+            <a href="{{ url_for('historial') }}"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+            <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h1>Historial de Ejercicios</h1>
+        <div style="text-align:center; margin-bottom:1.5rem;">
+            <a href="{{ url_for('exportar_excel') }}" class="btn"
+                style="background:#DFFF00; color:#000; font-weight:bold; padding:10px 24px; border-radius:8px; text-decoration:none;">Exportar
+                a Excel</a>
+            <a href="/" class="btn"
+                style="background:#DFFF00; color:#000; font-weight:bold; padding:10px 24px; border-radius:8px; text-decoration:none;">Volver
+                al inicio</a>
+        </div>
+        <table>
+            <tr>
+                <th>Usuario</th>
+                <th>Ejercicio</th>
+                <th>Repeticiones</th>
+                <th>Errores</th>
+                <th>Fecha</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ users.get(row.user_id, row.user_id) }}</td>
+                <td>{{ row.exercise }}</td>
+                <td>{{ row.reps }}</td>
+                <td>{{ row.errors }}</td>
+                <td>{{ row.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>
