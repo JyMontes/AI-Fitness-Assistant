@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <title>AI Assistant App</title>
+  <style>
+    .appbar {
+        background: #1C1C1C;
+        color: #fff;
+        padding: 0 2rem;
+        height: 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #2E2E2E;
+        box-shadow: 0 2px 8px #00000044;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .appbar .title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+
+    .appbar .nav {
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+    }
+
+    .appbar .nav a {
+        color: #DFFF00;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 6px 16px;
+        border-radius: 6px;
+        transition: background 0.2s, color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .appbar .nav a:hover {
+        background: #2E2E2E;
+        color: #C6FF00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #000000;
+        margin: 0;
+        padding: 0;
+        color: #FFFFFF;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    .main-content {
+        margin-top: 64px;
+        height: calc(100vh - 64px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+        background-color: #1C1C1C;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #2E2E2E;
+    }
+
+    h1 {
+      text-align: center;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #8C8C8C;
+    }
+
+    .form-group input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .submit-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .submit-button button {
+      padding: 12px 24px;
+      background-color: #DFFF00;
+      color: #000000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-button button:hover {
+      background-color: #C6FF00;
+      color: #000000;
+    }
+
+
+    h1 {
+      font-size: 24px;
+      margin-top: 0;
+      letter-spacing: 2px;
+    }
+
+    .form-group label {
+      font-size: 16px;
+    }
+
+    .submit-button button {
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .submit-button button:hover {
+      background-color: #45a049;
+      color: #f7f7f7;
+    }
+
+    .modern-select,
+    .modern-input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      margin-right: 10px;
+    }
+
+    .exercise-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .add-btn,
+    .send-btn,
+    .remove-btn {
+      background: #2563eb;
+      /* Azul moderno */
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-left: 5px;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.08);
+    }
+
+    .add-btn:hover,
+    .send-btn:hover {
+      background: #1e40af;
+      color: #e0e7ef;
+    }
+
+    .remove-btn {
+      background: #ef4444;
+    }
+
+    .remove-btn:hover {
+      background: #b91c1c;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="appbar">
+      <span class="title">AI Assistant App</span>
+      <div class="nav">
+        <a href="{{ url_for('cuenta') }}"><i class="fa-solid fa-user"></i> Cuenta</a>
+        <a href="{{ url_for('historial') }}"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+        <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+      </div>
+  </div>
+  <div class="main-content">
+    <div class="container">
+      <h1>POSE CORRECTOR</h1>
+      <form method="POST" action="{{ url_for('show') }}" id="seriesForm">
+        <div id="exercise-series">
+          <div class="form-group exercise-row">
+            <label>Ejercicio:
+              <select name="exercise[]" class="modern-select">
+                <option value="left" >LEFT ARM BICEP CURL</option>
+                <option value="right">RIGHT ARM BICEP CURL</option>
+                <option value="pushup">PUSHUP</option>
+                <option value="squat">SQUAT</option>
+              </select>
+            </label>
+            <label>Repeticiones:
+              <input type="number" name="reps[]" min="1" value="10" required class="modern-input">
+            </label>
+            <button type="button" onclick="removeExercise(this)" class="remove-btn">Eliminar</button>
+          </div>
+        </div>
+        <div class="submit-button">
+          <button type="button" onclick="addExercise()" class="add-btn">Agregar ejercicio</button>
+          <button type="submit" class="send-btn">Enviar serie</button>
+        </div>
+      </form>
+      <script>
+        function addExercise() {
+          const container = document.getElementById('exercise-series');
+          const row = document.createElement('div');
+          row.className = 'form-group exercise-row';
+          row.innerHTML = `
+              <label>Ejercicio:
+                <select name="exercise[]" class="modern-select">
+                  <option value="left">LEFT ARM BICEP CURL</option>
+                  <option value="right">RIGHT ARM BICEP CURL</option>
+                  <option value="pushup">PUSHUP</option>
+                  <option value="squat">SQUAT</option>
+                </select>
+              </label>
+              <label>Repeticiones:
+                <input type="number" name="reps[]" min="1" value="10" required class="modern-input">
+              </label>
+              <button type="button" onclick="removeExercise(this)" class="remove-btn">Eliminar</button>
+            `;
+          container.appendChild(row);
+        }
+        function removeExercise(btn) {
+          btn.parentElement.remove();
+        }
+      </script>
+    </div>
+  </div>
+</body>
+
+</html>
