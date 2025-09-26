@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Cuenta de Usuario</title>
+    <style>
+        .appbar {
+            background: #1C1C1C;
+            color: #fff;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2E2E2E;
+            box-shadow: 0 2px 8px #00000044;
+            margin: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 1000;
+        }
+
+        .appbar .title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .appbar .nav {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .appbar .nav a {
+            color: #DFFF00;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .appbar .nav a:hover {
+            background: #2E2E2E;
+            color: #C6FF00;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .main-content {
+            margin-top: 64px;
+            height: calc(100vh - 64px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: #1C1C1C;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #2E2E2E;
+        }
+
+        h2 {
+            text-align: center;
+            color: #DFFF00;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #8C8C8C;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #2E2E2E;
+            background: #1C1C1C;
+            color: #FFFFFF;
+        }
+
+        .btn {
+            margin-top: 20px;
+            width: 100%;
+            background: #DFFF00;
+            color: #000000;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #C6FF00;
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="appbar">
+        <span class="title">AI Assistant App</span>
+        <div class="nav">
+            <a href="{{ url_for('cuenta') }}"><i class="fa-solid fa-user"></i> Cuenta</a>
+            <a href="{{ url_for('historial') }}"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+            <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <h2>Actualizar Cuenta</h2>
+            <form method="POST">
+                <label>Nombre</label>
+                <input type="text" name="name" value="{{ user.name }}" required>
+                <label>Edad</label>
+                <input type="number" name="age" value="{{ user.age }}" min="1" required>
+                <label>Email</label>
+                <input type="email" name="email" value="{{ user.email }}" required>
+                <label>Género</label>
+                <select name="gender" required>
+                    <option value="M" {% if user.gender=='M' %}selected{% endif %}>Masculino</option>
+                    <option value="F" {% if user.gender=='F' %}selected{% endif %}>Femenino</option>
+                </select>
+                <label>Contraseña (dejar vacío para no cambiar)</label>
+                <input type="password" name="password">
+                <button type="submit" class="btn">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
